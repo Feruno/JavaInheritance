@@ -1,6 +1,6 @@
 package org.example;
 
-public class Epic extends Task{
+public class Epic extends Task {
     protected String[] subtasks;
 
     public Epic(int id, String[] sub) {
@@ -14,13 +14,11 @@ public class Epic extends Task{
 
     @Override
     public boolean matches(String query) {
-
-        for (String i : subtasks){
+        for (String i : subtasks) {
             if (i.contains(query)) {
                 return true;
             }
         }
-
         return false;
     }
 }

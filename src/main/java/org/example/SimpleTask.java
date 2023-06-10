@@ -1,6 +1,6 @@
 package org.example;
 
-public class SimpleTask extends Task{
+public class SimpleTask extends Task {
     protected String title;
 
     public SimpleTask(int id, String title) {

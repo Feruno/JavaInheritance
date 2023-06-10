@@ -54,7 +54,7 @@ class TasksTest {
     @Test
     public void matchesTrueEpic() {
 
-        String[] subtasks = { "Молоко", "Яйца", "Хлеб" };
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
         Todos todos = new Todos();
@@ -73,7 +73,7 @@ class TasksTest {
     @Test
     public void matchesFalseEpic() {
 
-        String[] subtasks = { "Молоко", "Яйца", "Хлеб" };
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
         Todos todos = new Todos();
@@ -92,7 +92,7 @@ class TasksTest {
     @Test
     public void matchesEmptyEpic() {
 
-        String[] subtasks = { "Молоко", "Яйца", "Хлеб" };
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
         Todos todos = new Todos();
@@ -122,6 +122,28 @@ class TasksTest {
         todos.add(meeting);
 
         boolean actual = meeting.matches("Выкатка 3й версии приложения");
+        boolean expected = true;
+
+        Assertions.assertEquals(expected, actual);
+
+        System.out.println(actual);
+
+    }
+
+    @Test
+    public void matchesTrueSecondParamMeeting() {
+
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Todos todos = new Todos();
+        todos.add(meeting);
+
+        boolean actual = meeting.matches("Приложение НетоБанка");
         boolean expected = true;
 
         Assertions.assertEquals(expected, actual);
@@ -171,7 +193,6 @@ class TasksTest {
         System.out.println(actual);
 
     }
-
 
 
 }

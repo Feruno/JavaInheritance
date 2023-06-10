@@ -1,11 +1,11 @@
 package org.example;
 
-public class Meeting extends Task{
+public class Meeting extends Task {
     protected String topic;
     protected String project;
     protected String start;
 
-    public Meeting(int id, String topicTem, String proj, String timeStart ) {
+    public Meeting(int id, String topicTem, String proj, String timeStart) {
         super(id);
         this.topic = topicTem;
         this.project = proj;

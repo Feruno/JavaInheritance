@@ -12,7 +12,7 @@ class TodosTest {
     public void shouldAddThreeTasksOfDifferentType() {
         SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
 
-        String[] subtasks = { "Молоко", "Яйца", "Хлеб" };
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
         Meeting meeting = new Meeting(
@@ -28,7 +28,7 @@ class TodosTest {
         todos.add(epic);
         todos.add(meeting);
 
-        Task[] expected = { simpleTask, epic, meeting };
+        Task[] expected = {simpleTask, epic, meeting};
         Task[] actual = todos.findAll();
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -44,12 +44,39 @@ class TodosTest {
 
         Task[] res = todos.search("Позвонить родителям");
 
-        SimpleTask expected = simpleTask;
+        Task[] expected = {simpleTask};
 
-        Assertions.assertArrayEquals(new SimpleTask[]{expected}, res);
+        Assertions.assertArrayEquals(expected, res);
+    }
 
-        System.out.println(Arrays.deepToString(res));
-        System.out.println(expected);
+    @Test
+    public void shouldSearchEmptySimpleTask() {
+        SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+
+        Task[] res = todos.search("");
+
+        Task[] expected = {simpleTask};
+
+        Assertions.assertArrayEquals(expected, res);
+    }
+
+    @Test
+    public void shouldSearchNonExistingElementSimpleTask() {
+        SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+
+        Task[] res = todos.search("zzzzzzzz");
+
+        Task[] expected = {};
+
+        Assertions.assertArrayEquals(expected, res);
     }
 
     @Test
@@ -67,17 +94,55 @@ class TodosTest {
 
         Task[] res = todos.search("Выкатка 3й версии приложения");
 
-        Meeting expected = meeting;
+        Task[] expected = {meeting};
 
-        Assertions.assertArrayEquals(new Meeting[]{expected}, res);
-
-        System.out.println(Arrays.deepToString(res));
-        System.out.println(expected);
+        Assertions.assertArrayEquals(expected, res);
     }
 
     @Test
+    public void shouldSearchNonExistingElementMeeting() {
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Todos todos = new Todos();
+
+        todos.add(meeting);
+
+        Task[] res = todos.search("zzzzzzzzzz");
+
+        Task[] expected = {};
+
+        Assertions.assertArrayEquals(expected, res);
+    }
+
+    @Test
+    public void shouldSearchEmptyMeeting() {
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Todos todos = new Todos();
+
+        todos.add(meeting);
+
+        Task[] res = todos.search("");
+
+        Task[] expected = {meeting};
+
+        Assertions.assertArrayEquals(expected, res);
+    }
+
+
+    @Test
     public void shouldSearchEpic() {
-        String[] subtasks = { "Молоко", "Яйца", "Хлеб" };
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
         Todos todos = new Todos();
@@ -86,14 +151,45 @@ class TodosTest {
 
         Task[] res = todos.search("Молоко");
 
-        Epic expected = epic;
+        Task[] expected = {epic};
 
-        Assertions.assertArrayEquals(new Epic[]{expected}, res);
+        Assertions.assertArrayEquals(expected, res);
 
-        System.out.println(Arrays.deepToString(res));
-        System.out.println(expected);
     }
 
+    @Test
+    public void shouldSearchEmptyEpic() {
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        Todos todos = new Todos();
+
+        todos.add(epic);
+
+        Task[] res = todos.search("");
+
+        Task[] expected = {epic};
+
+        Assertions.assertArrayEquals(expected, res);
+
+    }
+
+    @Test
+    public void shouldSearchNonExistingElementEpic() {
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        Todos todos = new Todos();
+
+        todos.add(epic);
+
+        Task[] res = todos.search("zzzzzzzzzzzzzzzz");
+
+        Task[] expected = {};
+
+        Assertions.assertArrayEquals(expected, res);
+
+    }
 
 
 }
