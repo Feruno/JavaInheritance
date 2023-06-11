@@ -268,6 +268,4 @@ class TodosTest {
         Task[] expected = {};
         Assertions.assertArrayEquals(expected, res);
     }
-
-
 }
