@@ -191,5 +191,83 @@ class TodosTest {
 
     }
 
+    @Test
+    public void shouldSearchMultiTasksOfDifferentType() {
+        SimpleTask simpleTask = new SimpleTask(5, "Купить молоко");
+
+        String[] subtasks = {"молоко", "яйца", "хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        Task[] res = todos.search("молоко");
+
+        Task[] expected = {simpleTask, epic};
+        Assertions.assertArrayEquals(expected, res);
+    }
+
+    @Test
+    public void shouldSearchOneTask() {
+        SimpleTask simpleTask = new SimpleTask(5, "Купить хлеб");
+
+        String[] subtasks = {"молоко", "яйца", "хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        Task[] res = todos.search("Выкатка");
+
+        Task[] expected = {meeting};
+        Assertions.assertArrayEquals(expected, res);
+    }
+
+    @Test
+    public void shouldSearchNoTaskSuitable() {
+        SimpleTask simpleTask = new SimpleTask(5, "Купить хлеб");
+
+        String[] subtasks = {"молоко", "яйца", "хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        Task[] res = todos.search("багет");
+
+        Task[] expected = {};
+        Assertions.assertArrayEquals(expected, res);
+    }
+
 
 }
